@@ -20,24 +20,18 @@ namespace CCCP
 				new Prisoner("Семён Шмидт", "Национальность"),
 				new Prisoner("Витёк Косой", "Политическая"),
 				new Prisoner("Йоу Собаки", "Политическая"),
-				new Prisoner("Я НарутоУзумаки", "Ванадлизм"),
+				new Prisoner("Я НарутоУзумаки", "Вандализм"),
 			};
-
-			var filteredPrisoner = from Prisoner prisoner in prisoners
-								   where prisoner.Crime != "Политическая"
-								   select prisoner;
-
-			List<Prisoner> leftInPrison = new List<Prisoner>();
-
-			foreach (var prisoner in filteredPrisoner)
-			{
-				leftInPrison.Add(prisoner);
-			}
 
 			Console.WriteLine("Список заключенных до помилования");
 			Info(prisoners);
+
+			prisoners = (from Prisoner prisoner in prisoners
+								   where prisoner.Crime != "Политическая"
+								   select prisoner).ToList();
+
 			Console.WriteLine("Список заключенных после помилования");
-			Info(leftInPrison);
+			Info(prisoners);
 
 		}
 
@@ -49,6 +43,7 @@ namespace CCCP
 			}
 		}
 	}
+
 	class Prisoner
 	{
 		public Prisoner(string fullName, string crime)
@@ -60,5 +55,4 @@ namespace CCCP
 		public string FullName { get; private set; } 
 		public string Crime { get; private set; }
 	}
-
 }
